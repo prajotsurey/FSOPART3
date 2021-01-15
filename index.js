@@ -25,6 +25,8 @@ let persons = [
     }
 ]
 
+app.use(express.json())
+
 app.get('/api/persons', (request, response) => {
     response.json(persons)
 })
@@ -57,6 +59,41 @@ app.delete('/api/persons/:id', (request, response) => {
 
     response.status(204).end()
 })
+
+const generateID = () => {
+    return Math.floor(Math.random() * Math.floor(2000));
+}
+
+app.post('/api/persons/', (request,response) => {
+    
+    const body = request.body
+    console.lo
+    if (!body.name) {
+        return response.status(400).json({
+            error: 'name missing'
+        })
+    } else if (!body.number) {
+        return response.status(400).json({
+            error: 'number missing'
+        })
+    } else if (persons.find(person => person.name === body.name)){
+        return response.status(400).json({
+            error: 'name must be unique'
+        })
+    }
+
+    const person = { 
+
+        name: body.name,
+        number: body.number,
+        date: new Date(),
+        id: generateID(),
+    }
+
+    persons = persons.concat(person)
+    response.json(person)
+})  
+
 const PORT = 3001
 app.listen(PORT, () => {
     console.log(`server running on prot ${PORT}`)
