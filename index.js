@@ -31,13 +31,12 @@ app.get('/api/persons', (request, response) => {
     response.json(persons)
 })
 
-app.get('/api/info', (request, response) => {
+app.get('/info', (request, response) => {
     const personCount = persons.length
     const firstLine = `Phonebook has info for ${personCount} people`
-    
     const date = new Date()
     const time = `${date}`
-    console.log(date)
+
     response.writeHead(200, { 'Content-Type': 'text/plain' })
     response.end(firstLine +'\n\n'+ time)
 })
@@ -84,10 +83,11 @@ app.post('/api/persons/', (request,response) => {
 
     const person = { 
 
+        id: generateID(),
         name: body.name,
         number: body.number,
         date: new Date(),
-        id: generateID(),
+        
     }
 
     persons = persons.concat(person)
