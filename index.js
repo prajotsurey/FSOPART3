@@ -43,13 +43,16 @@ app.get('/api/persons', (request, response) => {
 })
 
 app.get('/info', (request, response) => {
-    const personCount = persons.length
-    const firstLine = `Phonebook has info for ${personCount} people`
+    
+    Person.countDocuments({}).then(count => {
+
+    const firstLine = `Phonebook has info ${count} for people`
     const date = new Date()
     const time = `${date}`
 
     response.writeHead(200, { 'Content-Type': 'text/plain' })
     response.end(firstLine +'\n\n'+ time)
+    })
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
