@@ -8,8 +8,8 @@ content-type: application/json
 
 ######################################################
 
-DELETE http://localhost:3001/api/persons/60055f6ee1ba8c3fb3942a4f
+DELETE http://localhost:3001/api/persons/2
 
 
 ###########################333
-GET http://localhost:3001/api/persons
+GET http://localhost:3001/api/persons/a
