@@ -17,10 +17,10 @@ GET http://localhost:3001/api/persons/600589f56249326c50bf950a
 
 
 ################################33
-POST http://localhost:3001/api/persons/
+PUT http://localhost:3001/api/persons/600589f56249326c50bf950a
 content-type: application/json
 
 {
-    "name": "sampasdle",
-    "number": "123123123123"
+    "name": "safg",
+    "number": "12312"
 }
