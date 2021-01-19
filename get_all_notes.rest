@@ -17,7 +17,7 @@ GET http://localhost:3001/api/persons/600589f56249326c50bf950a
 
 
 ################################33
-PUT http://localhost:3001/api/persons/600589f56249326c50bf950a
+POST http://localhost:3001/api/persons/
 content-type: application/json
 
 {

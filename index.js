@@ -81,7 +81,7 @@ const generateID = () => {
     return Math.floor(Math.random() * Math.floor(2000));
 }
 
-app.post('/api/persons/', (request,response) => {
+app.post('/api/persons/', (request,response,next) => {
     
     const body = request.body
     if (!body.name) {
@@ -101,9 +101,11 @@ app.post('/api/persons/', (request,response) => {
 
     })
 
-    person.save().then(savedPerson => {
+    person.save()
+    .then(savedPerson => {
         response.json(savedPerson)
     })
+    .catch(error => next(error))
 })  
 
 app.put('/api/persons/:id', (request, response, next) => {
@@ -128,10 +130,11 @@ const unknownEndpoint = (request, response) => {
 app.use(unknownEndpoint)
 
 const errorHandler = (error, request, response, next) => {
-    console.log(error.message)
 
-    if(error.name == 'CastError') {
+    if(error.name === 'CastError') {
         return response.status(400).send({ error: 'malformatted id'})
+    } else if(error.name === 'MongoError'){
+        return response.status(400).send({error: 'name must be unique'})
     }
     next(error)
 }
